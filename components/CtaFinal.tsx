@@ -111,10 +111,11 @@ export default function CtaFinal() {
           Conta para a gente. Se fizer sentido atacar, a gente ataca.
         </p>
 
-        {/* TODO: confirmar email de contato antes de ir a ar */}
         <a
           ref={btnRef}
-          href="mailto:contato@vettia.com.br"
+          href="https://wa.me/553175142675"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hover:scale-[1.03] hover:shadow-[0_0_0_4px_rgba(255,255,255,0.2)] hover:bg-[#EDECE8] transition-all duration-200"
           style={{
             display: 'inline-flex',

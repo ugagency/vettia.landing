@@ -95,20 +95,38 @@ export default function Footer() {
           >
             Contato
           </span>
-          {/* TODO: confirmar email de contato antes de ir a ar */}
-          <a
-            href="mailto:contato@vettia.com.br"
-            className="hover:text-[var(--text-primary)] transition-colors duration-150"
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 400,
-              fontSize: 14,
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-            }}
-          >
-            Falar com a Vettia
-          </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <a
+              href="https://wa.me/553175142675"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--text-primary)] transition-colors duration-150"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: 14,
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+              }}
+            >
+              WhatsApp
+            </a>
+            <a
+              href="https://www.instagram.com/vett.ia.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--text-primary)] transition-colors duration-150"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: 14,
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+              }}
+            >
+              Instagram
+            </a>
+          </div>
         </div>
       </div>
 

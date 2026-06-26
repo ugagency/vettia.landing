@@ -156,7 +156,7 @@ export default function Fundador() {
           </blockquote>
 
           <a
-            href="https://linkedin.com/in/ulissesgoncalves"
+            href="https://www.linkedin.com/in/ulisses-gon%C3%A7alves-38aaaa2b5/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80 transition-opacity"
