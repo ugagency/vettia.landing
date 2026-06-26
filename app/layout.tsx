@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import GsapProvider from '@/components/GsapProvider'
 
 export const metadata: Metadata = {
   title: 'Vettia — Software B2B para nichos específicos | Gestão de frotas, automação e desenvolvimento sob medida',
@@ -41,12 +42,17 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <GsapProvider />
+        {children}
+      </body>
     </html>
   )
 }
