@@ -2,19 +2,58 @@
 
 import { useEffect, useRef } from 'react'
 
+/* Ícones outline, stroke violeta 1.5px, 32×32 */
+function TargetIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="12" stroke="#7B5FEF" strokeWidth="1.5" />
+      <circle cx="16" cy="16" r="7" stroke="#7B5FEF" strokeWidth="1.5" />
+      <circle cx="16" cy="16" r="2" stroke="#7B5FEF" strokeWidth="1.5" />
+    </svg>
+  )
+}
+
+function ZapIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M18 3 L7 18 h7 l-2 11 11-15 h-7 l2-11 z"
+        stroke="#7B5FEF"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+function TagIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M4 15 V6 a2 2 0 0 1 2-2 h9 l13 13 -11 11 -13-13 z"
+        stroke="#7B5FEF"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="10.5" cy="10.5" r="1.8" stroke="#7B5FEF" strokeWidth="1.5" />
+    </svg>
+  )
+}
+
 const ITEMS = [
   {
-    num: '01',
+    icon: <TargetIcon />,
     title: 'Foco em nicho',
     body: 'Cada produto resolve um problema muito específico de um segmento que o mercado atende mal ou ignora. Não tentamos servir todo mundo — e é exatamente por isso que servimos bem quem escolhemos.',
   },
   {
-    num: '02',
+    icon: <ZapIcon />,
     title: 'Entrega rápida',
     body: 'Construímos com IA como alavanca real. Sem overhead de empresa grande, sem meses de espera para ver resultado.',
   },
   {
-    num: '03',
+    icon: <TagIcon />,
     title: 'Preço para PME',
     body: 'Ticket justo para o porte do seu negócio. Não cobramos enterprise para entregar solução de PME.',
   },
@@ -127,7 +166,7 @@ export default function Diferenciais() {
         <div className="grid grid-cols-1 md:grid-cols-3">
           {ITEMS.map((item, i) => (
             <div
-              key={item.num}
+              key={item.title}
               ref={(el) => { itemRefs.current[i] = el }}
               className="diff-item"
             >
@@ -136,17 +175,13 @@ export default function Diferenciais() {
                 aria-hidden="true"
                 style={{
                   display: 'block',
-                  fontFamily: "'Outfit', sans-serif",
-                  fontWeight: 800,
-                  fontSize: 96,
-                  color: 'rgba(123,95,239,0.12)',
                   lineHeight: 1,
-                  marginBottom: -16,
+                  marginBottom: 20,
                   pointerEvents: 'none',
                   userSelect: 'none',
                 }}
               >
-                {item.num}
+                {item.icon}
               </span>
               <h3
                 style={{

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import GsapProvider from '@/components/GsapProvider'
+import { GA_MEASUREMENT_ID } from '@/lib/gtag'
 
 export const metadata: Metadata = {
   title: 'Vettia — Software B2B para nichos específicos | Gestão de frotas, automação e desenvolvimento sob medida',
@@ -50,6 +52,21 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Google Analytics 4 */}
+        <Script
+          id="ga4-src"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+
         <GsapProvider />
         {children}
       </body>

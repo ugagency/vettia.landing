@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
+import { trackWhatsAppClick, trackProductClick } from '@/lib/gtag'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -9,7 +11,22 @@ export default function Hero() {
   const h1Line2Ref = useRef<HTMLSpanElement>(null)
   const subRef     = useRef<HTMLParagraphElement>(null)
   const ctasRef    = useRef<HTMLDivElement>(null)
+  const imageRef   = useRef<HTMLDivElement>(null)
+  const tiltRef    = useRef<HTMLDivElement>(null)
   const scrollRef  = useRef<HTMLDivElement>(null)
+
+  // Tilt 3D do notebook seguindo o cursor
+  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = tiltRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    el.style.transform = `rotateX(${(-py * 9).toFixed(2)}deg) rotateY(${(px * 12).toFixed(2)}deg) scale(1.02)`
+  }
+  const resetTilt = () => {
+    if (tiltRef.current) tiltRef.current.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)'
+  }
 
   useEffect(() => {
     let gsapInstance: typeof import('gsap')['default'] | null = null
@@ -24,6 +41,7 @@ export default function Hero() {
         h1Line2Ref.current,
         subRef.current,
         ctasRef.current,
+        imageRef.current,
       ]
       gsap.set(elements, { opacity: 0, y: 30 })
       gsap.set(scrollRef.current, { opacity: 0 })
@@ -36,7 +54,7 @@ export default function Hero() {
         gsapInstance = g
         const elements = [
           labelRef.current, h1Line1Ref.current, h1Line2Ref.current,
-          subRef.current, ctasRef.current,
+          subRef.current, ctasRef.current, imageRef.current,
         ]
         gsapInstance.set(elements, { opacity: 0, y: 30 })
         gsapInstance.set(scrollRef.current, { opacity: 0 })
@@ -50,6 +68,7 @@ export default function Hero() {
           .to(h1Line2Ref.current, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.40')
           .to(subRef.current,     { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.35')
           .to(ctasRef.current,    { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.30')
+          .to(imageRef.current,   { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.10')
           .to(scrollRef.current,  { opacity: 0.4,     duration: 0.4,  ease: 'power2.out' }, '-=0.1')
 
         const handleScroll = () => {
@@ -110,8 +129,10 @@ export default function Hero() {
           width: '100%',
           padding: '0 48px',
         }}
-        className="hero-content"
+        className="hero-content grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
       >
+        {/* Coluna de texto */}
+        <div className="hero-text-col">
         {/* Label */}
         <span
           ref={labelRef}
@@ -187,7 +208,10 @@ export default function Hero() {
           className="flex-col sm:flex-row"
         >
           <a
-            href="#frota360"
+            href="https://frota-360.vercel.app/landing"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackProductClick('frota360')}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -207,7 +231,10 @@ export default function Hero() {
             Ver Frota360 →
           </a>
           <a
-            href="#desenvolvimento"
+            href="https://wa.me/553175142675"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('hero')}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -224,8 +251,40 @@ export default function Hero() {
             }}
             className="w-full sm:w-auto justify-center hover:!border-[var(--brand-accent)] hover:!text-[var(--brand-accent)]"
           >
-            Contratar desenvolvimento
+            Falar com a Vettia →
           </a>
+        </div>
+        </div>
+
+        {/* Mockup do dashboard — coluna da direita, com tilt 3D no cursor */}
+        <div
+          ref={imageRef}
+          onMouseMove={handleTilt}
+          onMouseLeave={resetTilt}
+          style={{
+            width: '100%',
+            perspective: '1200px',
+          }}
+          className="mt-2 lg:mt-0"
+        >
+          <div
+            ref={tiltRef}
+            style={{
+              transformStyle: 'preserve-3d',
+              transition: 'transform 0.25s ease-out',
+              willChange: 'transform',
+            }}
+          >
+            <Image
+              src="/assets/brand/frota360-dashboard.png"
+              alt="Dashboard do Frota360 mostrando painel de gestão de frota, veículos ativos e assistente de IA"
+              width={1920}
+              height={1080}
+              priority
+              sizes="(max-width: 1024px) 100vw, 600px"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </div>
         </div>
       </div>
 

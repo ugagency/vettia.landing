@@ -1,32 +1,75 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { trackProductClick } from '@/lib/gtag'
 
-function TruckIcon() {
+/* Preview do Frota360 — crop da mesma imagem do hero, focado na faixa de
+   cards de KPI do dashboard (sem o mockup de laptop). */
+function Frota360Preview() {
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <rect x="2" y="14" width="22" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M24 20h10l2 4v4H24V20z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <circle cx="10" cy="30" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="30" cy="30" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+    <div
+      role="img"
+      aria-label="Painel de KPIs do dashboard Frota360"
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundImage: "url('/assets/brand/frota360-dashboard.png')",
+        backgroundSize: '200%',
+        backgroundPosition: '60% 14%',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#FFFFFF',
+      }}
+    />
+  )
+}
+
+/* Preview do Dev sob medida — grafismo abstrato: "V" formado por nós
+   conectados, em violeta sobre fundo escuro. */
+function DevPreview() {
+  return (
+    <svg
+      viewBox="0 0 320 180"
+      width="100%"
+      height="100%"
+      fill="none"
+      role="img"
+      aria-label="Grafismo de automação Vettia"
+      style={{ display: 'block', background: '#0A0A0A' }}
+    >
+      <path d="M110 55 L160 120 L210 55" stroke="#7B5FEF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M85 90 L110 55" stroke="rgba(123,95,239,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M235 90 L210 55" stroke="rgba(123,95,239,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M160 120 L160 150" stroke="rgba(123,95,239,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="110" cy="55" r="6" fill="#0A0A0A" stroke="#7B5FEF" strokeWidth="2" />
+      <circle cx="210" cy="55" r="6" fill="#0A0A0A" stroke="#7B5FEF" strokeWidth="2" />
+      <circle cx="160" cy="120" r="7" fill="#7B5FEF" />
+      <circle cx="85" cy="90" r="4" fill="#7B5FEF" opacity="0.7" />
+      <circle cx="235" cy="90" r="4" fill="#7B5FEF" opacity="0.7" />
+      <circle cx="160" cy="150" r="4" fill="#7B5FEF" opacity="0.7" />
     </svg>
   )
 }
 
-function CodeIcon() {
+/* Preview do AutoQuote — PLACEHOLDER na paleta âmbar até o screenshot real.
+   TODO: substituir por screenshot real do AutoQuote */
+function AutoQuotePreview() {
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path d="M14 12L6 20l8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M26 12l8 8-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M22 10l-4 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function BoltIcon() {
-  return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path d="M23 4L8 22h13l-4 14 21-22H25L23 4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <svg
+      viewBox="0 0 320 180"
+      width="100%"
+      height="100%"
+      fill="none"
+      role="img"
+      aria-label="Documento de cotação sendo processado"
+      style={{ display: 'block', background: '#0A0A0A' }}
+    >
+      <rect x="120" y="45" width="80" height="100" rx="6" stroke="#E8A020" strokeWidth="2" />
+      <line x1="136" y1="70" x2="184" y2="70" stroke="#E8A020" strokeWidth="2" strokeLinecap="round" />
+      <line x1="136" y1="88" x2="184" y2="88" stroke="rgba(232,160,32,0.55)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="136" y1="106" x2="184" y2="106" stroke="rgba(232,160,32,0.55)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="136" y1="124" x2="168" y2="124" stroke="rgba(232,160,32,0.55)" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="200" cy="135" r="20" fill="#0A0A0A" stroke="#E8A020" strokeWidth="2" />
+      <path d="M200 126 v9 l6 5" stroke="#E8A020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -38,7 +81,8 @@ interface CardData {
   body: string
   href: string
   cta: string
-  icon: React.ReactNode
+  preview: React.ReactNode
+  product?: string
   featured: boolean
 }
 
@@ -48,9 +92,10 @@ const CARDS: CardData[] = [
     tag: 'SaaS · Gestão de frotas',
     title: 'Frota360',
     body: 'Sistema para transportadoras com 10 a 150 caminhões. Controle de documentos, compliance ANTT, portal do motorista e IA — tudo no idioma de quem opera frota de verdade.',
-    href: '/frota360', // TODO: substituir por URL real quando rota /frota360 existir
+    href: 'https://frota-360.vercel.app/landing',
     cta: 'Conhecer o Frota360',
-    icon: <TruckIcon />,
+    preview: <Frota360Preview />,
+    product: 'frota360',
     featured: false,
   },
   {
@@ -60,7 +105,7 @@ const CARDS: CardData[] = [
     body: 'Automações, sistemas e interfaces feitas para o problema específico do seu negócio. Preço justo para PME, entrega rápida, processo claro do início ao fim.',
     href: '#contato',
     cta: 'Falar sobre seu projeto',
-    icon: <CodeIcon />,
+    preview: <DevPreview />,
     featured: true,
   },
   {
@@ -68,9 +113,11 @@ const CARDS: CardData[] = [
     tag: 'SaaS · Automação',
     title: 'AutoQuote',
     body: 'Coleta eventos de cotação em minutos. O que levava dois dias de trabalho manual, o AutoQuote faz antes do café.',
-    href: '/autoquote', // TODO: substituir por URL real quando rota /autoquote existir
+    href: 'https://autoquote.ia.br',
     cta: 'Saber mais',
-    icon: <BoltIcon />,
+    /* TODO: substituir por screenshot real do AutoQuote */
+    preview: <AutoQuotePreview />,
+    product: 'autoquote',
     featured: false,
   },
 ]
@@ -188,9 +235,18 @@ export default function Vetores() {
                   : {}),
               }}
             >
-              {/* Icon */}
-              <div style={{ color: 'var(--brand-accent)', marginBottom: 8 }}>
-                {card.icon}
+              {/* Preview 16:9 */}
+              <div
+                style={{
+                  width: '100%',
+                  aspectRatio: '16 / 9',
+                  borderRadius: 8,
+                  border: '1px solid rgba(123,95,239,0.15)',
+                  overflow: 'hidden',
+                  marginBottom: 12,
+                }}
+              >
+                {card.preview}
               </div>
 
               {/* Tag */}
@@ -237,6 +293,10 @@ export default function Vetores() {
               {/* CTA link */}
               <a
                 href={card.href}
+                {...(card.href.startsWith('http')
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                onClick={card.product ? () => trackProductClick(card.product!) : undefined}
                 style={{
                   marginTop: 'auto',
                   display: 'inline-flex',

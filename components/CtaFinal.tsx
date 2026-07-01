@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { trackWhatsAppClick } from '@/lib/gtag'
 
 export default function CtaFinal() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -116,6 +117,7 @@ export default function CtaFinal() {
           href="https://wa.me/553175142675"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick('cta_final')}
           className="hover:scale-[1.03] hover:shadow-[0_0_0_4px_rgba(255,255,255,0.2)] hover:bg-[#EDECE8] transition-all duration-200"
           style={{
             display: 'inline-flex',
