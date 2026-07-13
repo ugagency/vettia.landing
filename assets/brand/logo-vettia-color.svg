@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80">
+<defs></defs>
+
+<g transform="translate(14,14) scale(0.96)">
+  <polygon points="4,2 18,2 30,50 16,50" fill="#7B5FEF"></polygon>
+  <polygon points="56,2 42,2 30,50 44,50" fill="#7B5FEF"></polygon>
+</g>
+<text x="74" y="62" font-family="Outfit,sans-serif" font-weight="800" font-size="64" letter-spacing="-1.5" fill="#0A0A0A">ettia</text>
+</svg>
