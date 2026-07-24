@@ -143,7 +143,6 @@ export default function Footer() {
         >
           © 2025 Vettia Soluções em Tecnologia Ltda.
         </p>
-        {/* TODO: inserir CNPJ real quando disponível */}
         <p
           style={{
             fontFamily: "'JetBrains Mono', monospace",
@@ -153,7 +152,7 @@ export default function Footer() {
             opacity: 0.5,
           }}
         >
-          CNPJ a confirmar
+          CNPJ 67.852.495/0001-58
         </p>
       </div>
     </footer>
